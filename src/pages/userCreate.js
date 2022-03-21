@@ -4,7 +4,7 @@ import FormInput from "../components/formInput";
 const UserCreate = () => {
   return (
     <Form resource="users" to="/">
-      <FormInput source="firstName" type="string" label="First name" />
+      <FormInput source="firstName" type="text" label="First name" />
       <FormInput source="lastName" type="text" label="Last name" />
       <FormInput source="email" type="text" label="Email" />
       <FormInput source="phone" type="tel" label="Phone" />

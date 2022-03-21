@@ -7,6 +7,7 @@ import UserEdit from "./pages/userEdit";
 import GroupList from "./pages/groupList";
 import GroupShow from "./pages/groupShow";
 import "./App.css";
+import GroupCreate from "./pages/groupCreate";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ function App() {
             <Route path="/:id" element={<UserShow />} />,
             <Route path="/:id/edit" element={<UserEdit />} />,
             <Route path="/new-user" element={<UserCreate />} />,
+            <Route path="/new-group" element={<GroupCreate />} />,
             <Route path="/groups" element={<GroupList />} />,
             <Route path="/groups/:id" element={<GroupShow />} />,
           </Routes>

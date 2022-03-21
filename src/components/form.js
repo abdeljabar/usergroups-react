@@ -1,39 +1,67 @@
-import axios from "axios";
-import React from "react";
-import { useQuery } from "react-query";
+import React, { useState } from "react";
+import { useMutation } from "react-query";
+import axioss from "../utils/axiosInstance";
 
 const Form = ({ resource, to, id, children }) => {
-  const {
-    data: result,
-    isLoading,
-    error,
-  } = useQuery(
-    id,
-    () => {
-      return axios.get("http://localhost:8080" + id);
-    },
-    { id }
-  );
+  const mutation = useMutation((record) => {
+    return axioss.post(`/${resource}`, record);
+  });
 
-  console.log("result", result);
+  const [formData, setFormData] = useState({});
+
+  const handleChange = ({ currentTarget }) => {
+    setFormData({
+      ...formData,
+      [currentTarget.name]:
+        currentTarget.type === "number"
+          ? parseInt(currentTarget.value)
+          : currentTarget.value,
+    });
+    console.log("formData", formData);
+  };
+
+  const handleSubmit = (formData) => {
+    mutation.mutate(formData);
+  };
 
   return (
     <>
       <div>
-        <form action="#" method="post">
-          {React.Children.map(children, (child) => {
-            console.log(child);
-            return (
-              <div key={child.props.source}>
-                {React.cloneElement(child, {
-                  source: child.props.source,
-                  record: result ? result.data : null,
-                })}
-              </div>
-            );
-          })}
-          <button type="submit">Submit</button>
-        </form>
+        {mutation.isLoading ? (
+          "Creating a record..."
+        ) : (
+          <>
+            {mutation.isError ? (
+              <div>An error occurred: {mutation.error.message}</div>
+            ) : null}
+
+            {mutation.isSuccess ? <div>Record created!</div> : null}
+
+            <form
+              action="#"
+              method="post"
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSubmit(formData);
+              }}
+            >
+              {React.Children.map(children, (child) => {
+                console.log(child);
+                return (
+                  <div key={child.props.source}>
+                    {React.cloneElement(child, {
+                      source: child.props.source,
+                      //record: id && !isLoading && result ? result.data : null,
+                      handleChange: handleChange,
+                      value: formData[child.props.source],
+                    })}
+                  </div>
+                );
+              })}
+              <button type="submit">Submit</button>
+            </form>
+          </>
+        )}
       </div>
     </>
   );
