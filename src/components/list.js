@@ -1,16 +1,17 @@
-import axios from "axios";
 import React from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+import axioss from "../utils/axiosInstance";
 import { encodeIri } from "../utils/common";
 
 const List = ({ children, resource, to }) => {
+  console.log("resource", resource);
   const {
     data: result,
     isLoading,
     error,
   } = useQuery(resource, () => {
-    return axios.get("http://localhost:8080/" + resource);
+    return axioss.get(resource);
   });
 
   return (

@@ -1,13 +1,33 @@
-import React, { useState } from "react";
-import { useMutation } from "react-query";
+import React, { useEffect, useState } from "react";
+import { useMutation, useQuery } from "react-query";
 import axioss from "../utils/axiosInstance";
 
-const Form = ({ resource, to, id, children }) => {
+const EditForm = ({ id, children, to }) => {
   const mutation = useMutation((record) => {
-    return axioss.post(`/${resource}`, record);
+    if (id) {
+      return axioss.put(id, record);
+    }
   });
 
+  const {
+    data: result,
+    isLoading,
+    error,
+  } = useQuery(
+    id,
+    () => {
+      return axioss.get(id);
+    },
+    { id }
+  );
+
   const [formData, setFormData] = useState({});
+
+  useEffect(() => {
+    if (!isLoading && !error) {
+      setFormData(result.data);
+    }
+  }, [result]);
 
   const handleChange = ({ currentTarget }) => {
     setFormData({
@@ -28,7 +48,7 @@ const Form = ({ resource, to, id, children }) => {
     <>
       <div>
         {mutation.isLoading ? (
-          "Creating a record..."
+          "Updating a record..."
         ) : (
           <>
             {mutation.isError ? (
@@ -51,7 +71,6 @@ const Form = ({ resource, to, id, children }) => {
                   <div key={child.props.source}>
                     {React.cloneElement(child, {
                       source: child.props.source,
-                      //record: id && !isLoading && result ? result.data : null,
                       handleChange: handleChange,
                       value: formData[child.props.source],
                     })}
@@ -67,4 +86,4 @@ const Form = ({ resource, to, id, children }) => {
   );
 };
 
-export default Form;
+export default EditForm;

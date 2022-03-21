@@ -8,6 +8,7 @@ import GroupList from "./pages/groupList";
 import GroupShow from "./pages/groupShow";
 import "./App.css";
 import GroupCreate from "./pages/groupCreate";
+import GroupEdit from "./pages/groupEdit";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +38,7 @@ function App() {
             <Route path="/new-group" element={<GroupCreate />} />,
             <Route path="/groups" element={<GroupList />} />,
             <Route path="/groups/:id" element={<GroupShow />} />,
+            <Route path="/groups/:id/edit" element={<GroupEdit />} />,
           </Routes>
         </div>
       </Router>

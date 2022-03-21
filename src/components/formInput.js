@@ -1,11 +1,11 @@
-const FormInput = ({ record, source, type, label, handleChange }) => {
+const FormInput = ({ value, source, type, label, handleChange }) => {
   return (
     <>
       <label style={{ display: "block" }}>{label}</label>
       <input
         type={type}
         name={source}
-        value={record && record[source]}
+        value={value}
         onChange={(e) => handleChange(e)}
       />
     </>

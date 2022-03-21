@@ -1,6 +1,6 @@
-import axios from "axios";
 import React from "react";
 import { useQuery } from "react-query";
+import axioss from "../utils/axiosInstance";
 
 const Show = ({ children, id }) => {
   const {
@@ -8,7 +8,7 @@ const Show = ({ children, id }) => {
     isLoading,
     error,
   } = useQuery(id, () => {
-    return axios.get("http://localhost:8080" + id);
+    return axioss.get(id);
   });
 
   console.log("result", result);
