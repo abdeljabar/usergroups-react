@@ -2,6 +2,8 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import UserList from "./pages/userList";
 import UserShow from "./pages/userShow";
+import UserCreate from "./pages/userCreate";
+import UserEdit from "./pages/userEdit";
 import GroupList from "./pages/groupList";
 import GroupShow from "./pages/groupShow";
 import "./App.css";
@@ -29,6 +31,8 @@ function App() {
           <Routes>
             <Route path="/" element={<UserList />} />,
             <Route path="/:id" element={<UserShow />} />,
+            <Route path="/:id/edit" element={<UserEdit />} />,
+            <Route path="/new-user" element={<UserCreate />} />,
             <Route path="/groups" element={<GroupList />} />,
             <Route path="/groups/:id" element={<GroupShow />} />,
           </Routes>

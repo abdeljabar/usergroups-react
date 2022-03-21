@@ -42,8 +42,18 @@ const List = ({ children, resource, to }) => {
                   );
                 })}
                 <td>
-                  <Link to={`${to !== "/" && to}/${encodeIri(item["@id"])}`}>
+                  <Link
+                    to={`${to !== "/" ? to : ""}/${encodeIri(item["@id"])}`}
+                  >
                     Show
+                  </Link>
+                  &nbsp;
+                  <Link
+                    to={`${to !== "/" ? to : ""}/${encodeIri(
+                      item["@id"]
+                    )}/edit`}
+                  >
+                    Edit
                   </Link>
                 </td>
               </tr>
