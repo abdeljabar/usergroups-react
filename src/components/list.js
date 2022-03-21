@@ -1,8 +1,10 @@
 import axios from "axios";
 import React from "react";
 import { useQuery } from "react-query";
+import { Link } from "react-router-dom";
+import { encodeIri } from "../utils/common";
 
-const List = ({ children, resource }) => {
+const List = ({ children, resource, to }) => {
   const {
     data: result,
     isLoading,
@@ -39,6 +41,11 @@ const List = ({ children, resource }) => {
                     </td>
                   );
                 })}
+                <td>
+                  <Link to={`${to !== "/" && to}/${encodeIri(item["@id"])}`}>
+                    Show
+                  </Link>
+                </td>
               </tr>
             ))}
           </tbody>

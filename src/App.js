@@ -1,37 +1,39 @@
 import { QueryClientProvider, QueryClient } from "react-query";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import UserList from "./pages/userList";
+import UserShow from "./pages/userShow";
+import GroupList from "./pages/groupList";
+import GroupShow from "./pages/groupShow";
 import "./App.css";
-import Field from "./components/field";
-import Form from "./components/form";
-import FormInput from "./components/formInput";
-import List from "./components/list";
-import Show from "./components/show";
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="App">
-        <List resource="groups">
-          <Field source="name" type="string" label="Name" />
-          <Field source="description" type="text" label="Description" />
-        </List>
-
-        <Show iri="/groups/85">
-          <Field source="name" type="string" label="Name" showLabel={true} />
-          <Field
-            source="description"
-            type="text"
-            label="Description"
-            showLabel={true}
-          />
-        </Show>
-
-        <Form resource="groups">
-          <FormInput source="name" type="string" label="Name" />
-          <FormInput source="description" type="text" label="Description" />
-        </Form>
-      </div>
+      <Router>
+        <div className="App">
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Users</Link>
+              </li>
+              <li>
+                <Link to="/groups">Groups</Link>
+              </li>
+              {/*<li>
+                <Link to="/login">Login</Link>
+  </li>*/}
+            </ul>
+          </nav>
+          <Routes>
+            <Route path="/" element={<UserList />} />,
+            <Route path="/:id" element={<UserShow />} />,
+            <Route path="/groups" element={<GroupList />} />,
+            <Route path="/groups/:id" element={<GroupShow />} />,
+          </Routes>
+        </div>
+      </Router>
     </QueryClientProvider>
   );
 }

@@ -2,14 +2,16 @@ import axios from "axios";
 import React from "react";
 import { useQuery } from "react-query";
 
-const Show = ({ children, iri }) => {
+const Show = ({ children, id }) => {
   const {
     data: result,
     isLoading,
     error,
-  } = useQuery(iri, () => {
-    return axios.get("http://localhost:8080" + iri);
+  } = useQuery(id, () => {
+    return axios.get("http://localhost:8080" + id);
   });
+
+  console.log("result", result);
 
   return (
     <>

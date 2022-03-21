@@ -1,7 +1,11 @@
 const Field = ({ record, source, label, showLabel }) => {
   return (
     <>
-      {showLabel && <div>{label}</div>}
+      {showLabel && (
+        <div>
+          <strong>{label}</strong>
+        </div>
+      )}
       <div>{record[source]}</div>
     </>
   );
