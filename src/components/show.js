@@ -11,8 +11,6 @@ const Show = ({ children, id }) => {
     return axioss.get(id);
   });
 
-  console.log("result", result);
-
   return (
     <>
       {isLoading && <span>Loading...</span>}
