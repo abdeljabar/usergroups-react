@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import axioss from "../utils/axiosInstance";
 import { encodeIri } from "../utils/common";
 
-const List = ({ children, resource, to, filters }) => {
+const List = ({ children, resource, to, filters, isAuthenticated }) => {
   const [url, setUrl] = useState(resource);
   const [searchFilters, setSearchFilters] = useState({});
 
@@ -87,13 +87,15 @@ const List = ({ children, resource, to, filters }) => {
                     Show
                   </Link>
                   &nbsp;
-                  <Link
-                    to={`${to !== "/" ? to : ""}/${encodeIri(
-                      item["@id"]
-                    )}/edit`}
-                  >
-                    Edit
-                  </Link>
+                  {isAuthenticated && (
+                    <Link
+                      to={`${to !== "/" ? to : ""}/${encodeIri(
+                        item["@id"]
+                      )}/edit`}
+                    >
+                      Edit
+                    </Link>
+                  )}
                 </td>
               </tr>
             ))}

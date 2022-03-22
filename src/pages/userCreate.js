@@ -1,7 +1,16 @@
+import { useNavigate } from "react-router-dom";
 import CreateForm from "../components/CreateForm";
 import FormInput from "../components/formInput";
+import useAuth from "../hooks/useAuth";
 
 const UserCreate = () => {
+  const navigate = useNavigate();
+  const isAuthenticated = useAuth();
+
+  if (!isAuthenticated) {
+    navigate("/", { replace: true });
+  }
+
   return (
     <CreateForm resource="users" to="/">
       <FormInput source="firstName" type="text" label="First name" />

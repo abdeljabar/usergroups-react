@@ -6,14 +6,16 @@ import UserCreate from "./pages/userCreate";
 import UserEdit from "./pages/userEdit";
 import GroupList from "./pages/groupList";
 import GroupShow from "./pages/groupShow";
-import "./App.css";
 import GroupCreate from "./pages/groupCreate";
 import GroupEdit from "./pages/groupEdit";
 import Login from "./pages/Login";
+import useAuth from "./hooks/useAuth";
+import Logout from "./pages/Logout";
 
 const queryClient = new QueryClient();
 
 function App() {
+  const isAuthenticated = useAuth();
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
@@ -26,9 +28,16 @@ function App() {
               <li>
                 <Link to="/groups">Groups</Link>
               </li>
-              {/*<li>
-                <Link to="/login">Login</Link>
-  </li>*/}
+              {!isAuthenticated && (
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+              )}
+              {isAuthenticated && (
+                <li>
+                  <Link to="/logout">Logout</Link>
+                </li>
+              )}
             </ul>
           </nav>
           <Routes>
@@ -41,6 +50,7 @@ function App() {
             <Route path="/groups/:id" element={<GroupShow />} />,
             <Route path="/groups/:id/edit" element={<GroupEdit />} />,
             <Route path="/login" element={<Login />} />,
+            <Route path="/logout" element={<Logout />} />,
           </Routes>
         </div>
       </Router>

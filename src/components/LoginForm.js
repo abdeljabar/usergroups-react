@@ -32,7 +32,8 @@ const CreateForm = ({ resource, children, to }) => {
     const { token } = mutation.data.data;
     localStorage.setItem("token", token);
 
-    navigate("/", { replace: true });
+    //navigate("/", { replace: true });
+    window.location.href = "/";
   }
 
   return (
