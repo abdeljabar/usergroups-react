@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import axioss from "../utils/axiosInstance";
 
-const EditForm = ({ id, children, to }) => {
+const EditForm = ({ id, children, onSuccess }) => {
   const mutation = useMutation((record) => {
     if (id) {
       return axioss.put(id, record);
@@ -43,6 +43,11 @@ const EditForm = ({ id, children, to }) => {
   const handleSubmit = (formData) => {
     mutation.mutate(formData);
   };
+
+  if (onSuccess && mutation.isSuccess) {
+    console.log("data", mutation.data.data);
+    onSuccess();
+  }
 
   return (
     <>

@@ -11,10 +11,14 @@ const UserCreate = () => {
     navigate("/", { replace: true });
   }
 
+  const handleSuccess = () => {
+    navigate("/", { replace: true });
+  };
+
   return (
     <>
       <h2>Create a new user</h2>
-      <CreateForm resource="users" to="/">
+      <CreateForm resource="users" onSuccess={handleSuccess}>
         <FormInput source="firstName" type="text" label="First name" />
         <FormInput source="lastName" type="text" label="Last name" />
         <FormInput source="email" type="text" label="Email" />

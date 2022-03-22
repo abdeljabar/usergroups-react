@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import { useMutation } from "react-query";
 import axioss from "../utils/axiosInstance";
 
-const CreateForm = ({ resource, children, to }) => {
+const CreateForm = ({ resource, children, onSuccess }) => {
   const mutation = useMutation((record) => {
     return axioss.post(`/${resource}`, record);
   });
@@ -23,6 +23,11 @@ const CreateForm = ({ resource, children, to }) => {
   const handleSubmit = (formData) => {
     mutation.mutate(formData);
   };
+
+  if (onSuccess && mutation.isSuccess) {
+    console.log("data", mutation.data.data);
+    onSuccess();
+  }
 
   return (
     <>

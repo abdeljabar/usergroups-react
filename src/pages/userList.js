@@ -19,6 +19,7 @@ const UserList = () => {
 
   return (
     <>
+      <h2>List of users</h2>
       {isAuthenticated ? (
         <Link to="/new-user">Create user</Link>
       ) : (

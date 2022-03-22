@@ -10,8 +10,13 @@ const GroupCreate = () => {
   if (!isAuthenticated) {
     navigate("/", { replace: true });
   }
+
+  const handleSuccess = () => {
+    navigate("/groups", { replace: true });
+  };
+
   return (
-    <CreateForm resource="groups" to="/groups">
+    <CreateForm resource="groups" onSuccess={handleSuccess}>
       <FormInput source="name" type="text" label="Name" />
       <FormInput source="description" type="text" label="Description" />
     </CreateForm>
