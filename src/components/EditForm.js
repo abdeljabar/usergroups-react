@@ -46,7 +46,7 @@ const EditForm = ({ id, children, to }) => {
 
   return (
     <>
-      <div>
+      <div className="container">
         {mutation.isLoading ? (
           "Updating a record..."
         ) : (
@@ -77,7 +77,9 @@ const EditForm = ({ id, children, to }) => {
                   </div>
                 );
               })}
-              <button type="submit">Submit</button>
+              <button type="submit" className="btn">
+                Submit
+              </button>
             </form>
           </>
         )}

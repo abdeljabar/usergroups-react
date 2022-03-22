@@ -38,7 +38,7 @@ const CreateForm = ({ resource, children, to }) => {
 
   return (
     <>
-      <div>
+      <div className="container login">
         {mutation.isLoading ? (
           "Loginng in..."
         ) : (
@@ -48,6 +48,8 @@ const CreateForm = ({ resource, children, to }) => {
             ) : null}
 
             {mutation.isSuccess ? <div>Login successful!</div> : null}
+
+            <h2>Login</h2>
 
             <form
               action="#"
@@ -65,11 +67,14 @@ const CreateForm = ({ resource, children, to }) => {
                       source: child.props.source,
                       handleChange: handleChange,
                       value: formData[child.props.source],
+                      hideLabel: child.props.hideLabel,
                     })}
                   </div>
                 );
               })}
-              <button type="submit">Submit</button>
+              <button type="submit" className="btn">
+                Submit
+              </button>
             </form>
           </>
         )}

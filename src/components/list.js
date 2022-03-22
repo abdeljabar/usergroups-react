@@ -48,59 +48,70 @@ const List = ({ children, resource, to, filters, isAuthenticated }) => {
   return (
     <>
       {filters && (
-        <>
-          {filters.map((filter) => {
-            return (
-              <>{React.cloneElement(filter, { handleChange: handleChange })}</>
-            );
-          })}
-        </>
+        <div className="container">
+          <form>
+            {filters.map((filter) => {
+              return (
+                <>
+                  {React.cloneElement(filter, {
+                    handleChange: handleChange,
+                    hideLabel: true,
+                  })}
+                  &nbsp;&nbsp;
+                </>
+              );
+            })}
+          </form>
+        </div>
       )}
       {isLoading && <span>Loading...</span>}
       {error && <span>There was an error loading data.</span>}
       {!isLoading && !error && result && (
-        <table border="1">
-          <thead>
-            <tr>
-              {React.Children.map(children, (child) => {
-                return <th key={child.props.source}>{child.props.label}</th>;
-              })}
-            </tr>
-          </thead>
-          <tbody>
-            {result.data["hydra:member"].map((item) => (
-              <tr key={item.name}>
+        <div className="container">
+          <table>
+            <thead>
+              <tr>
                 {React.Children.map(children, (child) => {
-                  return (
-                    <td key={child.props.source}>
-                      {React.cloneElement(child, {
-                        record: item,
-                        source: child.props.source,
-                      })}
-                    </td>
-                  );
+                  return <th key={child.props.source}>{child.props.label}</th>;
                 })}
-                <td>
-                  <Link
-                    to={`${to !== "/" ? to : ""}/${encodeIri(item["@id"])}`}
-                  >
-                    Show
-                  </Link>
-                  &nbsp;
-                  {isAuthenticated && (
-                    <Link
-                      to={`${to !== "/" ? to : ""}/${encodeIri(
-                        item["@id"]
-                      )}/edit`}
-                    >
-                      Edit
-                    </Link>
-                  )}
-                </td>
+                <th></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {result.data["hydra:member"].map((item) => (
+                <tr key={item.name}>
+                  {React.Children.map(children, (child) => {
+                    return (
+                      <td key={child.props.source}>
+                        {React.cloneElement(child, {
+                          record: item,
+                          source: child.props.source,
+                        })}
+                      </td>
+                    );
+                  })}
+                  <td>
+                    <Link
+                      to={`${to !== "/" ? to : ""}/${encodeIri(item["@id"])}`}
+                    >
+                      Show
+                    </Link>
+                    &nbsp;
+                    {isAuthenticated && (
+                      <Link
+                        to={`${to !== "/" ? to : ""}/${encodeIri(
+                          item["@id"]
+                        )}/edit`}
+                      >
+                        Edit
+                      </Link>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </>
   );

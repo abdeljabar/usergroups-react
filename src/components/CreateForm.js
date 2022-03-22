@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useMutation } from "react-query";
 import axioss from "../utils/axiosInstance";
 
@@ -26,7 +26,7 @@ const CreateForm = ({ resource, children, to }) => {
 
   return (
     <>
-      <div>
+      <div className="container">
         {mutation.isLoading ? (
           "Creating a record..."
         ) : (
@@ -48,7 +48,7 @@ const CreateForm = ({ resource, children, to }) => {
               {React.Children.map(children, (child) => {
                 console.log(child);
                 return (
-                  <div key={child.props.source}>
+                  <div className="form-group" key={child.props.source}>
                     {React.cloneElement(child, {
                       source: child.props.source,
                       handleChange: handleChange,
@@ -57,7 +57,9 @@ const CreateForm = ({ resource, children, to }) => {
                   </div>
                 );
               })}
-              <button type="submit">Submit</button>
+              <button type="submit" className="btn">
+                Submit
+              </button>
             </form>
           </>
         )}
